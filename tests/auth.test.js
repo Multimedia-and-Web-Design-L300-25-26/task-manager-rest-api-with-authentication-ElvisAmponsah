@@ -1,7 +1,20 @@
 import request from "supertest";
 import app from "../src/app.js";
+import mongoose from "mongoose";
+import connectDB from "../src/config/db.js";
+import dotenv from "dotenv";
 
 describe("Auth Routes", () => {
+  beforeAll(async () => {
+    dotenv.config({ path: ".env.test" });
+    await connectDB();
+    await mongoose.connection.dropDatabase();
+  });
+
+  afterAll(async () => {
+    await mongoose.connection.dropDatabase();
+    await mongoose.connection.close();
+  });
 
   let token;
 

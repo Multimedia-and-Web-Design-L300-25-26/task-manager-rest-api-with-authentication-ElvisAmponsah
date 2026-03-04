@@ -1,10 +1,17 @@
 import request from "supertest";
 import app from "../src/app.js";
+import mongoose from "mongoose";
+import connectDB from "../src/config/db.js";
+import dotenv from "dotenv";
 
 let token;
 let taskId;
 
 beforeAll(async () => {
+  dotenv.config({ path: ".env.test" });
+  await connectDB();
+  await mongoose.connection.dropDatabase();
+
   // Register
   await request(app)
     .post("/api/auth/register")
@@ -58,4 +65,9 @@ describe("Task Routes", () => {
     expect(Array.isArray(res.body)).toBe(true);
   });
 
+});
+
+afterAll(async () => {
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
 });
