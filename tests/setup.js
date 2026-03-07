@@ -7,6 +7,10 @@ let mongoServer;
 
 beforeAll(async () => {
     dotenv.config({ path: ".env.test" });
+
+    // Set fallback environment variables for CI where .env files are missing
+    process.env.JWT_SECRET = process.env.JWT_SECRET || "fallback_ci_test_secret";
+
     mongoServer = await MongoMemoryServer.create();
     process.env.MONGO_URI = mongoServer.getUri();
 
