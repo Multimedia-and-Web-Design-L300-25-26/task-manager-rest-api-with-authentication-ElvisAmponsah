@@ -1,19 +1,15 @@
 import request from "supertest";
 import app from "../src/app.js";
 import mongoose from "mongoose";
-import connectDB from "../src/config/db.js";
-import dotenv from "dotenv";
 
 describe("Auth Routes", () => {
-  beforeAll(async () => {
-    dotenv.config({ path: ".env.test" });
-    await connectDB();
-    await mongoose.connection.dropDatabase();
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.dropDatabase();
-    await mongoose.connection.close();
+  beforeEach(async () => {
+    if (mongoose.connection.readyState === 1) {
+      const collections = mongoose.connection.collections;
+      for (const key in collections) {
+        await collections[key].deleteMany();
+      }
+    }
   });
 
   let token;

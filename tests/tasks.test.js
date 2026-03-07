@@ -1,16 +1,18 @@
 import request from "supertest";
 import app from "../src/app.js";
 import mongoose from "mongoose";
-import connectDB from "../src/config/db.js";
-import dotenv from "dotenv";
 
 let token;
 let taskId;
 
 beforeAll(async () => {
-  dotenv.config({ path: ".env.test" });
-  await connectDB();
-  await mongoose.connection.dropDatabase();
+  if (mongoose.connection.readyState === 1) {
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      await collections[key].deleteMany();
+    }
+  }
+
 
   // Register
   await request(app)
@@ -67,7 +69,3 @@ describe("Task Routes", () => {
 
 });
 
-afterAll(async () => {
-  await mongoose.connection.dropDatabase();
-  await mongoose.connection.close();
-});
