@@ -1,7 +1,16 @@
 import request from "supertest";
 import app from "../src/app.js";
+import mongoose from "mongoose";
 
 describe("Auth Routes", () => {
+  beforeEach(async () => {
+    if (mongoose.connection.readyState === 1) {
+      const collections = mongoose.connection.collections;
+      for (const key in collections) {
+        await collections[key].deleteMany();
+      }
+    }
+  });
 
   let token;
 

@@ -1,0 +1,101 @@
+(node:28156) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+FAIL tests/tasks.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (1) from .env.test -- tip: ⚙️  enable debug logging with { debug: true }
+
+      at _log (node_modules/dotenv/lib/main.js:139:11)
+
+    console.log
+      MongoDB connected
+
+      at log (src/config/db.js:8:13)
+
+  ● Task Routes › should create a task
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 401
+
+    [0m [90m 50 |[39m       })[33m;[39m
+     [90m 51 |[39m
+    [31m[1m>[22m[39m[90m 52 |[39m     expect(res[33m.[39mstatusCode)[33m.[39mtoBe([35m201[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 53 |[39m     expect(res[33m.[39mbody[33m.[39mtitle)[33m.[39mtoBe([32m"Test Task"[39m)[33m;[39m
+     [90m 54 |[39m
+     [90m 55 |[39m     taskId [33m=[39m res[33m.[39mbody[33m.[39m_id[33m;[39m[0m
+
+      at Object.toBe (tests/tasks.test.js:52:28)
+
+  ● Task Routes › should get user tasks only
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+    [0m [90m 61 |[39m       [33m.[39m[36mset[39m([32m"Authorization"[39m[33m,[39m [32m`Bearer ${token}`[39m)[33m;[39m
+     [90m 62 |[39m
+    [31m[1m>[22m[39m[90m 63 |[39m     expect(res[33m.[39mstatusCode)[33m.[39mtoBe([35m200[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 64 |[39m     expect([33mArray[39m[33m.[39misArray(res[33m.[39mbody))[33m.[39mtoBe([36mtrue[39m)[33m;[39m
+     [90m 65 |[39m   })[33m;[39m
+     [90m 66 |[39m[0m
+
+      at Object.toBe (tests/tasks.test.js:63:28)
+
+FAIL tests/auth.test.js
+  ● Console
+
+    console.log
+      [dotenv@17.3.1] injecting env (1) from .env.test -- tip: ⚙️  suppress all logs with { quiet: true }
+
+      at _log (node_modules/dotenv/lib/main.js:139:11)
+
+    console.log
+      MongoDB connected
+
+      at log (src/config/db.js:8:13)
+
+  ● Auth Routes › should register a user
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+    [0m [90m 26 |[39m       })[33m;[39m
+     [90m 27 |[39m
+    [31m[1m>[22m[39m[90m 28 |[39m     expect(res[33m.[39mstatusCode)[33m.[39mtoBe([35m201[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 29 |[39m     expect(res[33m.[39mbody[33m.[39memail)[33m.[39mtoBe([32m"test@example.com"[39m)[33m;[39m
+     [90m 30 |[39m   })[33m;[39m
+     [90m 31 |[39m[0m
+
+      at Object.toBe (tests/auth.test.js:28:28)
+
+  ● Auth Routes › should login user and return token
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 200
+    Received: 401
+
+    [0m [90m 38 |[39m       })[33m;[39m
+     [90m 39 |[39m
+    [31m[1m>[22m[39m[90m 40 |[39m     expect(res[33m.[39mstatusCode)[33m.[39mtoBe([35m200[39m)[33m;[39m
+     [90m    |[39m                            [31m[1m^[22m[39m
+     [90m 41 |[39m     expect(res[33m.[39mbody[33m.[39mtoken)[33m.[39mtoBeDefined()[33m;[39m
+     [90m 42 |[39m
+     [90m 43 |[39m     token [33m=[39m res[33m.[39mbody[33m.[39mtoken[33m;[39m[0m
+
+      at Object.toBe (tests/auth.test.js:40:28)
+
+Test Suites: 2 failed, 2 total
+Tests:       4 failed, 1 passed, 5 total
+Snapshots:   0 total
+Time:        1.928 s, estimated 2 s
+Ran all test suites.

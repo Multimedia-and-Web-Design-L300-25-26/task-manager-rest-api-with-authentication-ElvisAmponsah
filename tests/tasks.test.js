@@ -1,10 +1,19 @@
 import request from "supertest";
 import app from "../src/app.js";
+import mongoose from "mongoose";
 
 let token;
 let taskId;
 
 beforeAll(async () => {
+  if (mongoose.connection.readyState === 1) {
+    const collections = mongoose.connection.collections;
+    for (const key in collections) {
+      await collections[key].deleteMany();
+    }
+  }
+
+
   // Register
   await request(app)
     .post("/api/auth/register")
@@ -59,3 +68,4 @@ describe("Task Routes", () => {
   });
 
 });
+
